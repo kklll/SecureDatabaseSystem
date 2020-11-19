@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nuc.securedatabasesystem.mapper.HospitalRecordsMapper">
+  <resultMap id="BaseResultMap" type="com.nuc.securedatabasesystem.pojo.HospitalRecords">
+    <!--@mbg.generated-->
+    <!--@Table hospital_records-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="patient_name" jdbcType="VARCHAR" property="patientName" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="idcrad" jdbcType="VARCHAR" property="idcrad" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="doctor" jdbcType="VARCHAR" property="doctor" />
+    <result column="symptom" jdbcType="VARCHAR" property="symptom" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="medical_history" jdbcType="VARCHAR" property="medicalHistory" />
+    <result column="doctor_order" jdbcType="VARCHAR" property="doctorOrder" />
+    <result column="clinic_date" jdbcType="TIMESTAMP" property="clinicDate" />
+    <result column="discharge_date" jdbcType="TIMESTAMP" property="dischargeDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, patient_name, sex, address, idcrad, birthday, phone, doctor, symptom, department, 
+    medical_history, doctor_order, clinic_date, 
+discharge_date
+  </sql>
+</mapper>
