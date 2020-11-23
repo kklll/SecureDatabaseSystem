@@ -8,7 +8,7 @@ import java.lang.reflect.Field;
  * @Date 2020/11/18 16:18
  */
 @Retention(RetentionPolicy.RUNTIME)
-public @interface MyAnnotation {
-    String[] fields() default "unknown";
+@Target(ElementType.FIELD)
+public @interface Secret {
 }
 

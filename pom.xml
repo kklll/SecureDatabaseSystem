@@ -80,7 +80,6 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.70</version>
         </dependency>
-        <!--        shiro-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -91,7 +90,12 @@
             <artifactId>shiro-spring-boot-starter</artifactId>
             <version>1.7.0</version>
         </dependency>
-
+        <!--        java Mail-->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
         <!--        jwt-->
         <dependency>
             <groupId>com.auth0</groupId>

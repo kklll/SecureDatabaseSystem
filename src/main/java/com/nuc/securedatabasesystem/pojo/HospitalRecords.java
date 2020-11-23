@@ -4,16 +4,22 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
-import java.util.Date;
-
+import com.nuc.securedatabasesystem.core.Secret;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
+ * @ClassName HospitalRecords
+ * @Deacription TODO
  * @Author DeepBlue
- * @Date 2020/11/19 20:39
- */
+ * @Date 2020/11/21 22:50
+ * @Version 1.0
+ **/
+
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName(value = "hospital_records")
 public class HospitalRecords {
     /**
@@ -25,36 +31,42 @@ public class HospitalRecords {
     /**
      * 患者姓名
      */
+    @Secret
     @TableField(value = "patient_name")
     private String patientName;
 
     /**
      * 患者性别
      */
+    @Secret
     @TableField(value = "sex")
     private String sex;
 
     /**
      * 患者住址
      */
+    @Secret
     @TableField(value = "address")
     private String address;
 
     /**
      * 患者身份证号码
      */
+    @Secret
     @TableField(value = "idcrad")
     private String idcrad;
 
     /**
      * 患者出生日期
      */
+    @Secret
     @TableField(value = "birthday")
-    private Date birthday;
+    private String birthday;
 
     /**
      * 联系电话
      */
+    @Secret
     @TableField(value = "phone")
     private String phone;
 
@@ -67,6 +79,7 @@ public class HospitalRecords {
     /**
      * 症状
      */
+    @Secret
     @TableField(value = "symptom")
     private String symptom;
 
@@ -79,24 +92,34 @@ public class HospitalRecords {
     /**
      * 病史
      */
+    @Secret
     @TableField(value = "medical_history")
     private String medicalHistory;
 
     /**
      * 医嘱
      */
+    @Secret
     @TableField(value = "doctor_order")
     private String doctorOrder;
 
     /**
      * 就诊日期
      */
+    @Secret
     @TableField(value = "clinic_date")
-    private Date clinicDate;
+    private String clinicDate;
 
     /**
      * 出院日期
      */
-    @TableField(value = "discharge_date")
-    private Date dischargeDate;
+    @Secret
+    @TableField(value = "leave_date")
+    private String leaveDate;
+
+    /**
+     * 签名
+     */
+    @TableField(value = "sign")
+    private String sign;
 }

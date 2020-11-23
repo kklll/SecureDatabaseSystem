@@ -10,9 +10,17 @@ import {Message} from "element-ui";
 
 Vue.config.productionTip = false
 // router配置
-
+let baseUrl= "";
+switch (process.env.NODE_ENV){
+    case 'development':
+        baseUrl = "http://localhost:8889/api/"  //开发环境url
+        break
+    case 'production':
+        baseUrl = "http://dlddw.xyz:8889/api/"   //生产环境url
+        break
+}
 //axios全局配置
-axios.defaults.baseURL = "http://127.0.0.1:8888/api/"
+axios.defaults.baseURL = baseUrl
 axios.defaults.timeout = 2 * 1000
 //request拦截器
 axios.interceptors.request.use(config => {
@@ -28,6 +36,10 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(data => {
     if (data.status && data.status === 200 && data.data.status === 'error') {
         Message.error({message: data.data.msg});
+        return;
+    }
+    if (data.status && data.status === 200 && data.data.code === '-1') {
+        Message.error({message: data.data.message});
         return;
     }
     return data;

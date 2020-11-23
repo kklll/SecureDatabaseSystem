@@ -30,6 +30,8 @@ public class ShiroConfig {
 
     @Value("${jwt.auth}")
     private boolean auth;
+    @Autowired
+    AuthFilter authFilter;
 
     @Bean
     public DefaultWebSubjectFactory subjectFactory() {
@@ -57,12 +59,12 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager());
         Map<String, Filter> filterMap = new HashMap<>();
-        filterMap.put("customFilter", new AuthFilter());
+        filterMap.put("customFilter", authFilter);
         shiroFilterFactoryBean.setFilters(filterMap);
         Map<String, String> filterChainDefinitionMap = new HashMap<>();
-        String flag = auth ? "customFilter" : "anno";
+        String flag = auth ? "customFilter" : "anon";
         filterChainDefinitionMap.put("/api/login/**", "anon");
-//        filterChainDefinitionMap.put("/api/login", "anon");
+        filterChainDefinitionMap.put("/api/login", "anon");
         filterChainDefinitionMap.put("/api/**", flag);
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;

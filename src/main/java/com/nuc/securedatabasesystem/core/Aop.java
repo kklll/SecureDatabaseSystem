@@ -24,37 +24,29 @@ public class Aop {
 
     @Before("pointCut()")
     public void doSomeThing(JoinPoint joinPoint) {
-        System.out.println("******拦截前的逻辑******");
-        System.out.println("目标方法名为:" + joinPoint.getSignature().getName());
-        System.out.println("目标方法所属类的简单类名:" + joinPoint.getSignature().getDeclaringType().getSimpleName());
-        System.out.println("目标方法所属类的类名:" + joinPoint.getSignature().getDeclaringTypeName());
-        System.out.println("目标方法声明类型:" + Modifier.toString(joinPoint.getSignature().getModifiers()));
+        log.info("******拦截前的逻辑******");
+        log.info("目标方法名为:" + joinPoint.getSignature().getName());
+        log.info("目标方法所属类的简单类名:" + joinPoint.getSignature().getDeclaringType().getSimpleName());
+        log.info("目标方法所属类的类名:" + joinPoint.getSignature().getDeclaringTypeName());
+        log.info("目标方法声明类型:" + Modifier.toString(joinPoint.getSignature().getModifiers()));
 
         //获取传入目标方法的参数
         Object[] args = joinPoint.getArgs();
         for (int i = 0; i < args.length; i++) {
             System.out.println("第" + (i + 1) + "个参数为:" + args[i]);
-            if (args[i].getClass().isAnnotationPresent(MyAnnotation.class)) {
-                System.out.println("使用了 MyAnnotation.class 注释");
-                MyAnnotation annotation = args[i].getClass().getAnnotation(MyAnnotation.class);
-                String[] fields = annotation.fields();
-                for (String s : fields) {
-                    System.out.println("注释中的内容: " + s);
-                }
+            if (args[i].getClass().isAnnotationPresent(Secret.class)) {
+                log.info("使用了 MyAnnotation.class 注释");
+                Secret annotation = args[i].getClass().getAnnotation(Secret.class);
                 String[] filedName = getFiledName(args[i]);
                 for (String s : filedName) {
-                    System.out.println("属性名称：" + s);
-                    System.out.println(getFieldValueByFieldName(s, args[i]));
-                    if ("password".equals(s)) {
-//                        setFieldValueByFieldName(s,args[i],"年轻人你不讲武德");
-                        System.out.println(args[i]);
-                    }
+                    log.info("属性名称：" + s);
+                    log.info(getFieldValueByFieldName(s, args[i]));
                 }
             }
-            System.out.println("第" + (i + 1) + "个参数全类名为:" + args[i].getClass().getName());
+            log.info("第" + (i + 1) + "个参数全类名为:" + args[i].getClass().getName());
         }
-        System.out.println("被代理的对象:" + joinPoint.getTarget());
-        System.out.println("代理对象自己:" + joinPoint.getThis());
+        log.info("被代理的对象:" + joinPoint.getTarget());
+        log.info("代理对象自己:" + joinPoint.getThis());
     }
 
     private String[] getFiledName(Object o) {

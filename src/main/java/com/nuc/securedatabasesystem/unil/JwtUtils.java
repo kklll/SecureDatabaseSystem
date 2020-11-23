@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
  * @Date 2020/11/12 15:20
  * jwt的一些工具类方法
  */
-@Configuration
 @Slf4j
 @Component
 public class JwtUtils {
@@ -57,5 +56,9 @@ public class JwtUtils {
         String token = httpServletRequest.getHeader("authorization");
         log.error("获取到jwtToken=={}", token);
         return token;
+    }
+
+    public String getSIGN() {
+        return SIGN;
     }
 }

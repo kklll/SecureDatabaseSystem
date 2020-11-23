@@ -2,7 +2,7 @@
 
 **安全数据库系统**
 
-***设计任务：***该系统实现一个安全的数据库系统，对数据库进行数字签名保证完整性，数据加密保证隐秘性。
+设计任务：该系统实现一个安全的数据库系统，对数据库进行数字签名保证完整性，数据加密保证隐秘性。
 
 ***设计要求：***
 
@@ -66,16 +66,17 @@ CREATE TABLE `hospital_records` (
   `sex` varchar(255) DEFAULT NULL COMMENT '患者性别',
   `address` varchar(255) DEFAULT NULL COMMENT '患者住址',
   `idcrad` varchar(255) DEFAULT NULL COMMENT '患者身份证号码',
-  `birthday` date DEFAULT NULL COMMENT '患者出生日期',
+  `birthday` varchar(255) DEFAULT NULL COMMENT '患者出生日期',
   `phone` varchar(255) DEFAULT NULL COMMENT '联系电话',
   `doctor` varchar(255) DEFAULT NULL COMMENT '主治医生姓名',
   `symptom` varchar(255) DEFAULT NULL COMMENT '症状',
   `department` varchar(255) DEFAULT NULL COMMENT '所属科室',
   `medical_history` varchar(255) DEFAULT NULL COMMENT '病史',
   `doctor_order` varchar(255) DEFAULT NULL COMMENT '医嘱',
-  `clinic_date` datetime DEFAULT NULL COMMENT '就诊日期',
+  `clinic_date` varchar(255) DEFAULT NULL COMMENT '就诊日期',
   `
-discharge_date` datetime DEFAULT NULL COMMENT '出院日期',
+discharge_date` varchar(255) DEFAULT NULL COMMENT '出院日期',
+  `sign` varchar(255) DEFAULT NULL COMMENT '签名',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```

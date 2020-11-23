@@ -1,7 +1,6 @@
 package com.nuc.securedatabasesystem.pojo;
 
 import com.baomidou.mybatisplus.annotation.*;
-import com.nuc.securedatabasesystem.core.MyAnnotation;
 import lombok.Data;
 
 /**
@@ -10,7 +9,6 @@ import lombok.Data;
  */
 @Data
 @TableName(value = "`user`")
-@MyAnnotation(fields = {"name","age"})
 public class User {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;

@@ -54,3 +54,5 @@ pages/web-page/*.njsproj
 pages/web-page/*.sln
 pages/web-page/*.sw?
 /.mvn/
+/pages/web-page/nginx.htaccess
+/pages/web-page/.htaccess
