@@ -89,10 +89,19 @@ public class Tool {
             if ("id".equals(f.getName().toLowerCase()) || "sign".equals(f.getName().toLowerCase())) {
                 continue;
             }
-            sb.append(String.valueOf(f.get(o)) );
+            sb.append(f.get(o));
         }
         return sb.toString();
     }
+
+    public boolean verify(Object o) throws Exception {
+        String content = getContent(o);
+        String secContent = content + jwtUtils.getSIGN();
+        Field sign = o.getClass().getDeclaredField("sign");
+        sign.setAccessible(true);
+        return SecureUtil.md5(secContent).equals(sign.get(o));
+    }
+
 
     /**
      * 验证签名且解密
@@ -100,32 +109,33 @@ public class Tool {
      * todo 签名验证失败后的动作
      */
     public void verifySignAndDecrypt(Object o) throws Exception {
-        String content = getContent(o);
-        String secContent = content + jwtUtils.getSIGN();
-        Field sign = o.getClass().getDeclaredField("sign");
-        sign.setAccessible(true);
-        if (SecureUtil.md5(secContent).equals(sign.get(o))) {
+        if (verify(o)) {
             log.info("签名验证成功！");
             decryptAllField(o);
         } else {
-            new Thread(() -> {
-                log.error("数据篡改警告！");
-                log.error("发送邮件！");
-                MailAccount account = new MailAccount();
-                account.setHost("smtp.163.com");
-                account.setPort(465);
-                account.setFrom("the__deep@163.com");
-                account.setAuth(true);
-                account.setSslEnable(true);
-                account.setUser("the__deep@163.com");
-                account.setPass(password);
-                MailUtil.send(account, "1012946585@qq.com", "数据篡改警报!", "数据遭到篡改:" + JSON.toJSONString(o), false);
-            }).start();
+
+            sendMail(o);
             throw new Exception("签名验证失败");
             //后续操作，比如发送邮件
         }
     }
 
+    public void sendMail(Object o) {
+        //新开一个线程，不阻塞主线程，这好吗？这好
+        new Thread(() -> {
+            log.error("数据篡改警告！");
+            log.error("发送邮件！");
+            MailAccount account = new MailAccount();
+            account.setHost("smtp.163.com");
+            account.setPort(465);
+            account.setFrom("the__deep@163.com");
+            account.setAuth(true);
+            account.setSslEnable(true);
+            account.setUser("the__deep@163.com");
+            account.setPass(password);
+            MailUtil.send(account, "1012946585@qq.com", "数据篡改警报!", "数据遭到篡改:" + JSON.toJSONString(o), false);
+        }).start();
+    }
 
     /**
      * 获取对象哪些字段需要被加密，即获取@Secret注解修饰的字段
@@ -135,7 +145,7 @@ public class Tool {
         //获取要加密的目标的Class类
         Class<?> aClass = o.getClass();
         //如果目标对象被TableName这个注解包裹了的话就说明这个类需要被加密。
-        if (aClass.isAnnotationPresent(TableName.class)) {
+        if (aClass.isAnnotationPresent(SecretTable.class)) {
             log.info("{}:是数据类", aClass.getName());
             //获取类的属性
             Field[] fields = aClass.getDeclaredFields();

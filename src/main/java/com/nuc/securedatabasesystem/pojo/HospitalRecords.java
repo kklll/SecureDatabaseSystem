@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.nuc.securedatabasesystem.core.Secret;
+import com.nuc.securedatabasesystem.core.SecretTable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
  **/
 
 @Data
+@SecretTable
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName(value = "hospital_records")

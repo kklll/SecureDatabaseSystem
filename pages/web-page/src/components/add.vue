@@ -291,9 +291,9 @@
           </el-date-picker>
         </el-form-item>
       </el-form>
-      <iframe width="100%" height="500"
-              src="//player.bilibili.com/player.html?aid=82179137&bvid=BV1HJ411L7DP&cid=140610898&page=1"
-              scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+<!--      <iframe width="100%" height="500"-->
+<!--              src="//player.bilibili.com/player.html?aid=82179137&bvid=BV1HJ411L7DP&cid=140610898&page=1"-->
+<!--              scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>-->
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogEditVisible = false">取 消</el-button>
         <el-button type="primary" :disabled="disableOk" @click="change('changeRef')">确 定</el-button>

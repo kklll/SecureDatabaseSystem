@@ -39,7 +39,7 @@
 
 我们要做的就是写一个中间层，使用此中间层进行加密和解密，目的就是为了当数据库发生一些SQL注入或者某些攻击的时候泄露数据之后攻击者也没法得到有效的数据。
 
-***加解密密钥选择：***
+***加解密算法选择：***
 
 - 对称加密---使用AES算法
 
@@ -48,16 +48,17 @@
 功能：
 
 - 医生登录后可以增删改查病人信息，同时对数据一致性进行校验，***篡改的话警告管理员***
-- 每个医生只能看到自己所在科室病人的病情信息。
 - 医生每次修改和增加的时候对数据库进行签名，每次查询前先检查签名。
 
 #### 数据库实现
 
-***基类的实现：***
-
-创建用户表：
+***数据表***
 
 ***患者姓名、性别、住址、身份证号码、出生日期、电话、主治医生、症状、所属科室、病史、医嘱、就诊日期、出院日期、***
+
+以此作为例子，其中***患者姓名、性别、住址、身份证号码、出生日期、电话、症状、病史、医嘱需要进行加密***。
+
+当然不仅仅局限该表进行加密，我们可以使用其中的方法进行其他表的加密，上述数据表只是为了方便演示使用。
 
 ```sql
 CREATE TABLE `hospital_records` (
@@ -74,10 +75,23 @@ CREATE TABLE `hospital_records` (
   `medical_history` varchar(255) DEFAULT NULL COMMENT '病史',
   `doctor_order` varchar(255) DEFAULT NULL COMMENT '医嘱',
   `clinic_date` varchar(255) DEFAULT NULL COMMENT '就诊日期',
-  `
-discharge_date` varchar(255) DEFAULT NULL COMMENT '出院日期',
+  `discharge_date` varchar(255) DEFAULT NULL COMMENT '出院日期',
   `sign` varchar(255) DEFAULT NULL COMMENT '签名',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
+
+#### 加密方式
+
+> 字段加密算法：AES
+
+**密钥=MD5(数据总密钥+字段名称)** 
+
+**密文=AES(密钥，要加密的文本)**
+
+> 签名的生成算法：MD5
+
+**签名文本=每个字段值密文进行字符串拼接后+数据总密钥**
+
+**签名=MD5(签名文本)**
 

@@ -1,6 +1,5 @@
 package com.nuc.securedatabasesystem.service;
 
-import com.nuc.securedatabasesystem.config.ResultBody;
 import com.nuc.securedatabasesystem.mapper.UserMapper;
 import com.nuc.securedatabasesystem.pojo.User;
 import com.nuc.securedatabasesystem.service.interfaces.UserService;

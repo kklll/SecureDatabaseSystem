@@ -16,13 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author DeepBlue
@@ -64,31 +63,31 @@ public class MainController {
         }
     }
 
-    /**
-     * @param request
-     * @param response
-     * @description: 生成验证码的放啊
-     * @return:
-     * @author DeepBlue
-     * @date: 2020/11/21 16:12
-     */
-    @GetMapping("login/cap")
-    public void captcha(HttpServletRequest request, HttpServletResponse response) {
-        //定义图形验证码的长和宽
-        ShearCaptcha lineCaptcha = CaptchaUtil.createShearCaptcha(200, 100);
-        request.setAttribute("cap", lineCaptcha.getCode());
-        try {
-            lineCaptcha.write(response.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                response.getOutputStream().close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    /**
+//     * @param request
+//     * @param response
+//     * @description: 生成验证码的放啊
+//     * @return:
+//     * @author DeepBlue
+//     * @date: 2020/11/21 16:12
+//     */
+//    @GetMapping("login/cap")
+//    public void captcha(HttpServletRequest request, HttpServletResponse response) {
+//        //定义图形验证码的长和宽
+//        ShearCaptcha lineCaptcha = CaptchaUtil.createShearCaptcha(200, 100);
+//        request.setAttribute("cap", lineCaptcha.getCode());
+//        try {
+//            lineCaptcha.write(response.getOutputStream());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                response.getOutputStream().close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 
     /**
      * @author DeepBlue
@@ -98,6 +97,9 @@ public class MainController {
     @PostMapping("add")
     public ResultBody add(@RequestBody HospitalRecords record) {
         try {
+            LocalDate now = LocalDate.now();
+            String format = now.format(DateTimeFormatter.ISO_DATE);
+            record.setClinicDate(format);
             tool.encryptAndSign(record);
             hospitalRecordsMapper.insert(record);
             return ResultBody.success();
@@ -105,6 +107,13 @@ public class MainController {
             return ResultBody.error("添加错误，请重试！");
         }
     }
+
+//    public static void main(String[] args) {
+//        ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(1);
+//        scheduledThreadPool.scheduleAtFixedRate(()->{
+//
+//        },1,3, TimeUnit.SECONDS);
+//    }
 
     /**
      * @author DeepBlue

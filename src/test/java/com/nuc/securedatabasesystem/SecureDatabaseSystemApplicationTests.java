@@ -1,19 +1,21 @@
 package com.nuc.securedatabasesystem;
 
 import cn.hutool.crypto.SecureUtil;
+import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.nuc.securedatabasesystem.core.ClassScanUtil;
 import com.nuc.securedatabasesystem.core.Tool;
 import com.nuc.securedatabasesystem.mapper.HospitalRecordsMapper;
 import com.nuc.securedatabasesystem.mapper.UserMapper;
 import com.nuc.securedatabasesystem.pojo.HospitalRecords;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
+import java.util.Set;
+
 
 
 @Slf4j
@@ -21,6 +23,9 @@ import java.lang.reflect.Method;
 class SecureDatabaseSystemApplicationTests {
     @Autowired
     UserMapper userMapper;
+
+    @Autowired
+    ClassScanUtil classScanUtil;
 
     @Autowired
     Tool tool;
@@ -86,5 +91,15 @@ class SecureDatabaseSystemApplicationTests {
             e.printStackTrace();
         }
         System.out.println(hospitalRecords);
+    }
+
+    /**
+     * 扫描com.demo.web路径下所有包含Api注解的类 * @param args
+     */
+    @Test
+    public void main() {
+        String packageName = "com.nuc.securedatabasesystem.pojo";
+        Set<Class> set = classScanUtil.getClass4Annotation(packageName, TableName.class);
+        System.out.println(JSON.toJSONString(set));
     }
 }

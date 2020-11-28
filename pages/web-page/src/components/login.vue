@@ -3,7 +3,7 @@
     <div class="login-box">
       <!--      头像-->
       <!--      'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'-->
-      <el-avatar :src="require('../assets/mbg2.png')"
+      <el-avatar :src="'https://cdn.jsdelivr.net/gh/kklll/Resources@master/pics/dd.jpg'"
                  class="avatar-box"></el-avatar>
       <!--      表单-->
       <el-form :model="loginForm" ref="loginFormRef" :rules="loginFormRules" label-width="0px" class="login-form">
@@ -17,12 +17,6 @@
           <el-input type="password" v-on:keyup.enter.native="login" v-model=loginForm.password
                     prefix-icon="el-icon-lock"></el-input>
         </el-form-item>
-        <!--        <el-form-item >-->
-        <!--          <el-image :src="this.$http.defaults.baseURL+'login/cap'" style="height: 50px;width: 100px"></el-image>-->
-        <!--          <el-input type="password" v-on:keyup.enter.native="login" v-model=loginForm.password-->
-        <!--                    prefix-icon="el-icon-lock"></el-input>-->
-        <!--        </el-form-item>-->
-
         <el-form-item class="btns">
           <el-button type="primary" @click="login()">登录</el-button>
           <el-button type="info" @click="resetLoginForm()">重置</el-button>
