@@ -49,6 +49,7 @@ public class JwtUtils {
      * @param token
      */
     public DecodedJWT verify(String token) {
+        //sha 256
         return JWT.require(Algorithm.HMAC256(SIGN)).build().verify(token);
     }
 

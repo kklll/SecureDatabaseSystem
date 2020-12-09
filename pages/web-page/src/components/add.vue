@@ -315,7 +315,7 @@ export default {
       addForm: {name: "", sex: ""},
       dialogFormVisible: false,
       formLabelWidth: '120px',
-      doctors: ["马老师", "婷婷", "英国大力士", "体重80KG的小伙子", "体重90KG的小伙子"],
+      doctors: ["张医生","李医生","刘医生","王医生","牛医生","阎医生","马医生"],
       departments: ["内科", "外科", "妇产科", "儿童科", "五官科", "传染科"],
       pickerOptions: {
         shortcuts: [{

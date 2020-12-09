@@ -1,6 +1,6 @@
 # SecureDatabaseSystem
 
-**安全数据库系统**
+**简易安全数据库系统**
 
 设计任务：该系统实现一个安全的数据库系统，对数据库进行数字签名保证完整性，数据加密保证隐秘性。
 
@@ -33,7 +33,7 @@
 
 （3）可用性：不应拒绝已授权的用户对数据进行存取。
 
-### 需求分析
+### 分析
 
 ![image-20201116100956298](https://cdn.jsdelivr.net/gh/kklll/Resources@master/pics/image-20201116100956298.png)
 
@@ -95,3 +95,27 @@ CREATE TABLE `hospital_records` (
 
 **签名=MD5(签名文本)**
 
+### 效果图
+
+![image-20201202163224064](https://cdn.jsdelivr.net/gh/kklll/Resources@master/pics/image-20201202163224064.png)
+
+![image-20201202163505155](https://cdn.jsdelivr.net/gh/kklll/Resources@master/pics/image-20201202163505155.png)
+
+![image-20201202163521111](https://cdn.jsdelivr.net/gh/kklll/Resources@master/pics/image-20201202163521111.png)
+
+![image-20201202163556785](https://cdn.jsdelivr.net/gh/kklll/Resources@master/pics/image-20201202163556785.png)
+
+表记录如上面，就是加密后的字段值是这样的。
+
+### 怎样使用？
+
+1. 克隆本项目 git clone  https://github.com/kklll/SecureDatabaseSystem.git
+2. cd secureDatabaseSystem
+3. cd web-design
+4. npm install 
+5. npm run serve ，进行到这一步表示你的前端已经跑起来了
+6. 后端的话就下载好依赖，然后点击IDEA的RUN，就跑起来了，前提是要配置好你的数据库信息！
+
+### 如何实现？
+
+其实最核心的方法就是进行加密解密和签名。使用注解@SecretTable 标注你想要加密的实体类，使用@Secret标注你要加密的字段，然后在数据库前的方法中使用Tool类中的方法进行加密解密验证（当然Tool类中的解密方法会自动判断签名字段是否被篡改），如果被篡改了的话会给你设置好的邮箱发送邮件。当然自动检测增、删、改、查方法还没有实现、同时加密后的数据不能进行范围查询，只是个建议的项目，希望多多批评！如果有好的解决方法希望大家可以提一提PR，帮助我这个小菜鸡更好的理解！

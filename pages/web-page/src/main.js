@@ -10,8 +10,8 @@ import {Message} from "element-ui";
 
 Vue.config.productionTip = false
 // router配置
-let baseUrl= "";
-switch (process.env.NODE_ENV){
+let baseUrl = "";
+switch (process.env.NODE_ENV) {
     case 'development':
         baseUrl = "http://localhost:8889/api/"  //开发环境url
         break

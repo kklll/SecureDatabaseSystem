@@ -58,6 +58,7 @@ export default {
       this.$refs.loginFormRef.validate(valid => {
         if (!valid) return;
         let pass = this.loginForm.password;
+        //10次hash
         for (let i = 0; i < 10; i++) {
           pass = md5(pass)
         }

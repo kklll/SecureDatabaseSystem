@@ -192,7 +192,7 @@ public class Tool {
         SymmetricCrypto aes = new SymmetricCrypto(SymmetricAlgorithm.AES, key);
         String decryptStr = aes.decryptStr((String) field.get(o));
         field.set(o, decryptStr);
-        log.info("解密后的内容为{}", decryptStr);
+//        log.info("解密后的内容为{}", decryptStr);
     }
 
     /**
